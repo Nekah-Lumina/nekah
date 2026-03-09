@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BirthLedger Demo | NEKAH</title>
+  <style>
+    :root{
+      --bg:#fffafc;
+      --surface:#ffffff;
+      --text:#2f2740;
+      --muted:#6d6480;
+      --primary:#7a5cf0;
+      --primary-dark:#6347d8;
+      --soft:#f3edff;
+      --soft-pink:#fff1f7;
+      --border:rgba(122,92,240,0.12);
+      --shadow:0 18px 40px rgba(70, 40, 140, 0.10);
+      --radius:24px;
+      --success:#0f9d58;
+      --warning:#b26a00;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top left, #fff5fb 0%, #fffafc 35%, #f8f5ff 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:auto;
+      padding:32px 18px 60px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#ffffff,#faf4ff);
+      border:1px solid var(--border);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      padding:28px;
+      margin-bottom:24px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(122,92,240,0.10);
+      color:var(--primary-dark);
+      font-weight:700;
+      font-size:0.86rem;
+      margin-bottom:14px;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(2rem,4vw,3rem);
+      color:#2d2152;
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      max-width:800px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:22px;
+    }
+
+    .card{
+      background:var(--surface);
+      border:1px solid rgba(0,0,0,0.04);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .card h2{
+      margin:0 0 14px;
+      font-size:1.2rem;
+      color:var(--primary-dark);
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    label{
+      display:block;
+      font-weight:600;
+      margin:14px 0 6px;
+      color:#43355d;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid #ddd6f7;
+      font-size:0.98rem;
+      background:white;
+      color:var(--text);
+    }
+
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    button{
+      border:none;
+      border-radius:16px;
+      padding:13px 18px;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.2s ease;
+    }
+
+    .primary{
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:white;
+    }
+
+    .secondary{
+      background:white;
+      color:var(--primary-dark);
+      border:1px solid var(--border);
+    }
+
+    button:hover{
+      transform:translateY(-1px);
+    }
+
+    .result{
+      background:linear-gradient(135deg,var(--soft),var(--soft-pink));
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:16px;
+      margin-top:16px;
+    }
+
+    .result-title{
+      font-weight:800;
+      color:var(--primary-dark);
+      margin-bottom:8px;
+    }
+
+    .mono{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      word-break:break-all;
+      background:white;
+      border:1px solid #e8e0ff;
+      border-radius:14px;
+      padding:12px;
+      font-size:0.88rem;
+    }
+
+    .status{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:0.88rem;
+      margin-top:10px;
+    }
+
+    .ok{
+      background:rgba(15,157,88,0.12);
+      color:var(--success);
+    }
+
+    .warn{
+      background:rgba(178,106,0,0.12);
+      color:var(--warning);
+    }
+
+    .mini-steps{
+      display:grid;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .step{
+      background:#fff;
+      border:1px solid #ece6ff;
+      border-radius:16px;
+      padding:14px;
+    }
+
+    .step strong{
+      display:block;
+      color:var(--primary-dark);
+      margin-bottom:4px;
+    }
+
+    .small{
+      font-size:0.88rem;
+      color:var(--muted);
+    }
+
+    .top-link{
+      display:inline-block;
+      margin-bottom:18px;
+      font-weight:700;
+    }
+
+    @media (max-width: 850px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+      .wrap{
+        padding:18px 14px 40px;
+      }
+      button{
+        width:100%;
+      }
+      .btn-row{
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="top-link" href="index.html">← Back to NEKAH</a>
+
+    <section class="hero">
+      <div class="badge">BirthLedger Demo</div>
+      <h1>Verifiable birth registration workflow</h1>
+      <p>
+        This proof-of-concept demonstrates how BirthLedger can create a tamper-resistant verification layer for birth registrations. Sensitive data remains off-chain, while a cryptographic fingerprint of the record is generated and can later be independently verified.
+      </p>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Create Birth Record</h2>
+        <p class="muted">
+          Fill in a sample birth record below. BirthLedger will generate a cryptographic hash representing the record and simulate blockchain anchoring for later verification.
+        </p>
+
+        <label for="motherName">Mother's Full Name</label>
+        <input id="motherName" type="text" placeholder="e.g. Ada Nwoye" />
+
+        <label for="childName">Child's Name</label>
+        <input id="childName" type="text" placeholder="e.g. Baby Chiamaka" />
+
+        <label for="dob">Date of Birth</label>
+        <input id="dob" type="date" />
+
+        <label for="facility">Health Facility / Place of Birth</label>
+        <input id="facility" type="text" placeholder="e.g. Surulere Primary Health Centre" />
+
+        <label for="sex">Sex of Child</label>
+        <select id="sex">
+          <option value="">Select</option>
+          <option>Female</option>
+          <option>Male</option>
+          <option>Other / Intersex</option>
+        </select>
+
+        <label for="attendant">Birth Attendant / Registrar</label>
+        <input id="attendant" type="text" placeholder="e.g. Midwife Esther James" />
+
+        <div class="btn-row">
+          <button class="primary" id="generateBtn">Generate Record Hash</button>
+          <button class="secondary" id="loadSampleBtn">Load Sample Data</button>
+          <button class="secondary" id="clearBtn">Clear</button>
+        </div>
+
+        <div id="recordOutput" style="display:none;" class="result">
+          <div class="result-title">BirthLedger Record Output</div>
+          <div class="small">Canonical record payload</div>
+          <pre id="payloadBox" class="mono"></pre>
+
+          <div class="small" style="margin-top:10px;">Cryptographic record hash</div>
+          <div id="hashBox" class="mono"></div>
+
+          <div class="small" style="margin-top:10px;">Anchoring status</div>
+          <div id="anchorStatus" class="status ok">Anchored to blockchain verification layer ✔</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Verify Existing Record</h2>
+        <p class="muted">
+          Paste the exact same birth record details to verify whether the generated cryptographic proof matches the anchored record.
+        </p>
+
+        <label for="verifyPayload">Record Payload</label>
+        <textarea id="verifyPayload" placeholder='Paste the JSON payload shown on the left'></textarea>
+
+        <label for="verifyHash">Anchored Hash</label>
+        <textarea id="verifyHash" placeholder="Paste the generated hash shown on the left"></textarea>
+
+        <div class="btn-row">
+          <button class="primary" id="verifyBtn">Verify Record</button>
+        </div>
+
+        <div id="verifyResult" style="display:none;" class="result">
+          <div class="result-title">Verification Result</div>
+          <div id="verifyMessage"></div>
+        </div>
+
+        <div class="mini-steps">
+          <div class="step">
+            <strong>1. Record creation</strong>
+            A birth event is documented by a facility or registrar.
+          </div>
+          <div class="step">
+            <strong>2. Hash generation</strong>
+            BirthLedger creates a unique cryptographic fingerprint of the record.
+          </div>
+          <div class="step">
+            <strong>3. Verification</strong>
+            Any trusted institution can verify the integrity of the record without exposing sensitive data on-chain.
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    let anchoredRecordHash = "";
+
+    function canonicalizeRecord(record) {
+      return JSON.stringify({
+        motherName: record.motherName.trim(),
+        childName: record.childName.trim(),
+        dateOfBirth: record.dateOfBirth,
+        facility: record.facility.trim(),
+        sex: record.sex,
+        attendant: record.attendant.trim()
+      }, null, 2);
+    }
+
+    async function sha256(text) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function getFormRecord() {
+      return {
+        motherName: document.getElementById("motherName").value,
+        childName: document.getElementById("childName").value,
+        dateOfBirth: document.getElementById("dob").value,
+        facility: document.getElementById("facility").value,
+        sex: document.getElementById("sex").value,
+        attendant: document.getElementById("attendant").value
+      };
+    }
+
+    function validateRecord(record) {
+      return Object.values(record).every(v => String(v).trim() !== "");
+    }
+
+    document.getElementById("loadSampleBtn").addEventListener("click", () => {
+      document.getElementById("motherName").value = "Ada Nwoye";
+      document.getElementById("childName").value = "Baby Chiamaka";
+      document.getElementById("dob").value = "2026-03-08";
+      document.getElementById("facility").value = "Surulere Primary Health Centre";
+      document.getElementById("sex").value = "Female";
+      document.getElementById("attendant").value = "Midwife Esther James";
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      ["motherName","childName","dob","facility","sex","attendant","verifyPayload","verifyHash"]
+        .forEach(id => document.getElementById(id).value = "");
+      document.getElementById("recordOutput").style.display = "none";
+      document.getElementById("verifyResult").style.display = "none";
+      anchoredRecordHash = "";
+    });
+
+    document.getElementById("generateBtn").addEventListener("click", async () => {
+      const record = getFormRecord();
+
+      if (!validateRecord(record)) {
+        alert("Please complete all birth record fields before generating the hash.");
+        return;
+      }
+
+      const payload = canonicalizeRecord(record);
+      const hash = await sha256(payload);
+      anchoredRecordHash = hash;
+
+      document.getElementById("payloadBox").textContent = payload;
+      document.getElementById("hashBox").textContent = hash;
+      document.getElementById("recordOutput").style.display = "block";
+
+      document.getElementById("verifyPayload").value = payload;
+      document.getElementById("verifyHash").value = hash;
+    });
+
+    document.getElementById("verifyBtn").addEventListener("click", async () => {
+      const payload = document.getElementById("verifyPayload").value.trim();
+      const inputHash = document.getElementById("verifyHash").value.trim();
+      const verifyBox = document.getElementById("verifyResult");
+      const verifyMessage = document.getElementById("verifyMessage");
+
+      if (!payload || !inputHash) {
+        alert("Please provide both the record payload and the anchored hash.");
+        return;
+      }
+
+      const regeneratedHash = await sha256(payload);
+
+      verifyBox.style.display = "block";
+
+      if (regeneratedHash === inputHash) {
+        verifyMessage.innerHTML = `
+          <div class="status ok">Record Verified ✔</div>
+          <p class="small" style="margin-top:10px;">
+            The cryptographic proof matches the anchored birth record. This indicates that the record has not been altered since it was created.
+          </p>
+          <div class="mono">${regeneratedHash}</div>
+        `;
+      } else {
+        verifyMessage.innerHTML = `
+          <div class="status warn">Verification Failed ✖</div>
+          <p class="small" style="margin-top:10px;">
+            The record payload does not match the provided anchored hash. This indicates that the record may have been changed, corrupted, or is not the same as the originally registered version.
+          </p>
+          <div class="mono">${regeneratedHash}</div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

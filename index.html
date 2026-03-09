@@ -4,198 +4,454 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEKAH | Maternal Health AI</title>
-
 <style>
-
+:root{
+  --bg:#f7f7fb;
+  --card:#ffffff;
+  --text:#2b2b39;
+  --muted:#66667a;
+  --primary:#6b4de6;
+  --primary2:#9c7bff;
+  --soft:#efeaff;
+  --soft2:#fff4fb;
+  --border:rgba(107,77,230,0.12);
+  --shadow:0 14px 35px rgba(40, 20, 120, 0.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;
-margin:0;
-background:#f7f7fb;
-color:#333;
-line-height:1.6;
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
 }
-
-.hero{
-background:linear-gradient(120deg,#6b4de6,#9c7bff);
-color:white;
-text-align:center;
-padding:90px 20px;
-}
-
-.hero h1{
-font-size:48px;
-margin-bottom:10px;
-}
-
-.hero p{
-font-size:20px;
-max-width:700px;
-margin:auto;
-}
-
-.container{
-max-width:950px;
-margin:auto;
-padding:60px 20px;
-}
-
-h2{
-color:#6b4de6;
-margin-bottom:20px;
-}
-
-.card{
-background:white;
-padding:28px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.06);
-margin-bottom:25px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
-}
-
-.feature{
-background:white;
-padding:24px;
-border-radius:10px;
-box-shadow:0 6px 18px rgba(0,0,0,0.07);
-}
-
-.feature h3{
-margin-top:0;
-color:#6b4de6;
-}
-
-footer{
-background:#111;
-color:white;
-text-align:center;
-padding:40px 20px;
-margin-top:40px;
-}
-
 a{
-color:#6b4de6;
-text-decoration:none;
-font-weight:500;
+  color:var(--primary);
+  text-decoration:none;
 }
-
+.nav{
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(12px);
+  background:rgba(247,247,251,0.85);
+  border-bottom:1px solid rgba(0,0,0,0.04);
+}
+.nav-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{
+  font-weight:800;
+  font-size:1.1rem;
+  color:var(--primary);
+  letter-spacing:0.4px;
+}
+.nav-links{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.nav-links a{
+  color:var(--muted);
+  font-weight:600;
+  font-size:0.95rem;
+}
+.hero{
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.28), transparent 30%),
+    linear-gradient(135deg,var(--primary),var(--primary2));
+  color:white;
+  padding:86px 20px 72px;
+}
+.hero-inner{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:40px;
+  align-items:center;
+}
+.badge{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.16);
+  border:1px solid rgba(255,255,255,0.18);
+  font-size:0.85rem;
+  font-weight:700;
+  margin-bottom:18px;
+}
+.hero h1{
+  margin:0 0 14px;
+  font-size:clamp(2.3rem,4vw,4.3rem);
+  line-height:1.05;
+}
+.hero p{
+  margin:0 0 24px;
+  font-size:1.08rem;
+  max-width:680px;
+  color:rgba(255,255,255,0.92);
+}
+.hero-actions{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.btn{
+  display:inline-block;
+  padding:14px 20px;
+  border-radius:12px;
+  font-weight:700;
+  border:1px solid transparent;
+}
+.btn-primary{
+  background:white;
+  color:var(--primary);
+}
+.btn-secondary{
+  background:rgba(255,255,255,0.12);
+  color:white;
+  border-color:rgba(255,255,255,0.22);
+}
+.mockup{
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:26px;
+  padding:18px;
+  box-shadow:0 20px 45px rgba(34, 15, 110, 0.22);
+}
+.phone{
+  background:white;
+  border-radius:22px;
+  padding:16px;
+  color:var(--text);
+}
+.phone-top{
+  height:12px;
+  width:90px;
+  background:#ececf8;
+  border-radius:999px;
+  margin:0 auto 18px;
+}
+.phone-card{
+  background:linear-gradient(135deg,#f3efff,#fff7fb);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+}
+.phone-card h4{
+  margin:0 0 8px;
+  color:var(--primary);
+}
+.phone-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:0.93rem;
+}
+.section{
+  max-width:1100px;
+  margin:auto;
+  padding:72px 20px;
+}
+.section h2{
+  font-size:2rem;
+  margin:0 0 14px;
+  color:var(--primary);
+}
+.section-intro{
+  max-width:760px;
+  color:var(--muted);
+  margin-bottom:28px;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+}
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+}
+.card{
+  background:var(--card);
+  border:1px solid rgba(0,0,0,0.04);
+  border-radius:20px;
+  padding:26px;
+  box-shadow:var(--shadow);
+}
+.card h3{
+  margin:0 0 10px;
+  color:var(--primary);
+  font-size:1.1rem;
+}
+.card p{
+  margin:0;
+  color:var(--muted);
+}
+.icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.3rem;
+  background:var(--soft);
+  margin-bottom:14px;
+}
+.soft-band{
+  background:linear-gradient(180deg,transparent,rgba(107,77,230,0.03));
+}
+.founder{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:22px;
+  align-items:start;
+}
+.avatar{
+  width:140px;
+  height:140px;
+  border-radius:24px;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.4rem;
+  font-weight:800;
+  box-shadow:var(--shadow);
+}
+.highlight{
+  background:linear-gradient(135deg,#f4efff,#fff7fb);
+  border:1px solid var(--border);
+}
+.impact-list{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+  margin-top:18px;
+}
+.impact-pill{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+.impact-pill strong{
+  display:block;
+  color:var(--primary);
+  font-size:1.1rem;
+  margin-bottom:6px;
+}
+.footer{
+  background:#151522;
+  color:#f4f3fb;
+  margin-top:24px;
+}
+.footer-inner{
+  max-width:1100px;
+  margin:auto;
+  padding:30px 20px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.footer small{
+  color:#cfcde5;
+}
+@media (max-width: 900px){
+  .hero-inner,
+  .grid-2,
+  .grid-3,
+  .founder,
+  .impact-list{
+    grid-template-columns:1fr;
+  }
+  .hero{
+    padding-top:64px;
+  }
+}
 </style>
 </head>
-
 <body>
 
+<div class="nav">
+  <div class="nav-inner">
+    <div class="brand">NEKAH</div>
+    <div class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#impact">Impact</a>
+      <a href="#founder">Founder</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</div>
+
 <section class="hero">
-<h1>NEKAH</h1>
-<p>
-An AI-powered maternal and infant health ecosystem designed to improve pregnancy care through early risk detection, compassionate maternal support, and stronger connections between mothers and healthcare providers.
-</p>
+  <div class="hero-inner">
+    <div>
+      <div class="badge">AI-powered maternal and infant health ecosystem</div>
+      <h1>Smarter support for mothers. Better outcomes for babies.</h1>
+      <p>
+        NEKAH is designed to improve pregnancy and early motherhood through early risk detection, emotionally intelligent maternal support, and stronger connections between mothers and healthcare providers.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Contact Founder</a>
+        <a class="btn btn-secondary" href="#solution">Explore NEKAH</a>
+      </div>
+    </div>
+
+    <div class="mockup">
+      <div class="phone">
+        <div class="phone-top"></div>
+        <div class="phone-card">
+          <h4>Talk to Nneka</h4>
+          <p>An emotionally intelligent maternal AI companion for reassurance, guidance, and wellbeing support.</p>
+        </div>
+        <div class="phone-card">
+          <h4>Early Risk Detection</h4>
+          <p>Helps mothers notice worrying symptoms earlier and understand when to seek care.</p>
+        </div>
+        <div class="phone-card">
+          <h4>Healthcare Connectivity</h4>
+          <p>Designed to strengthen links between mothers and health providers for informed care decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<div class="container">
+<section class="section" id="problem">
+  <h2>The Problem</h2>
+  <p class="section-intro">
+    Maternal and newborn health challenges are still shaped by delayed risk detection, limited access to timely support, and weak continuity of care, especially in underserved communities.
+  </p>
 
-<h2>The Problem</h2>
+  <div class="grid-2">
+    <div class="card">
+      <div class="icon">⚕️</div>
+      <h3>Delayed detection</h3>
+      <p>
+        Early symptoms often go unnoticed or are misunderstood, allowing preventable complications during pregnancy and postpartum care to worsen before support is reached.
+      </p>
+    </div>
 
-<div class="card">
-Maternal mortality remains a major global health challenge, particularly in underserved communities where early symptoms often go unnoticed and healthcare access may be limited.
-</div>
-
-<div class="card">
-Many mothers navigate pregnancy and early motherhood without continuous guidance, emotional reassurance, or tools that help detect risks early.
-</div>
-
-</div>
-
-<div class="container">
-
-<h2>The NEKAH Solution</h2>
-
-<div class="grid">
-
-<div class="feature">
-<h3>AI Maternal Companion</h3>
-<p>
-An emotionally intelligent AI assistant designed to support mothers through pregnancy and early motherhood by offering guidance, reassurance, and health awareness.
-</p>
-</div>
-
-<div class="feature">
-<h3>Early Risk Detection</h3>
-<p>
-Tools designed to help mothers recognize symptoms early and understand when medical attention may be needed.
-</p>
-</div>
-
-<div class="feature">
-<h3>Healthcare Connectivity</h3>
-<p>
-The platform aims to strengthen communication between mothers and healthcare providers for faster and more informed care decisions.
-</p>
-</div>
-
-<div class="feature">
-<h3>Maternal Wellbeing</h3>
-<p>
-NEKAH focuses on emotional support, postpartum wellbeing, and guidance for mothers navigating early parenthood.
-</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="container">
-
-<h2>Founder</h2>
-
-<div class="card">
-<strong>Francisca-Gina Anurika Umoh</strong> (formerly Francisca Omeagu) is the founder of NEKAH and NekahLumina Ventures.
-
-Winner of the 2025 HelpMum CareCode Hackathon where NEKAH received a ₦2,000,000 innovation grant and mentorship support.
-</div>
-
-</div>
-
-<div class="container">
-
-<h2>Our Mission</h2>
-
-<div class="card">
-NEKAH aims to build an intelligent maternal health ecosystem that empowers mothers with timely guidance, emotional support, and early risk detection tools while strengthening connections between mothers and healthcare providers.
-</div>
-
-</div>
-
-<section class="container">
-
-<h2>Impact for Mothers and Children</h2>
-
-<div class="card">
-NEKAH helps mothers recognize health risks earlier, access reliable guidance during pregnancy, and feel supported throughout early motherhood.
-</div>
-
-<div class="card">
-The platform aims to contribute to improved maternal wellbeing and healthier outcomes for newborns in underserved communities.
-</div>
-
+    <div class="card">
+      <div class="icon">💗</div>
+      <h3>Limited maternal support</h3>
+      <p>
+        Many mothers navigate pregnancy and early motherhood without consistent guidance, emotional reassurance, or tools that help them understand what is normal and what needs attention.
+      </p>
+    </div>
+  </div>
 </section>
 
-<div class="container">
+<section class="section soft-band" id="solution">
+  <h2>The NEKAH Solution</h2>
+  <p class="section-intro">
+    NEKAH combines intelligent support, maternal wellbeing tools, and healthcare connectivity into one ecosystem built for mothers, babies, and low-resource health environments.
+  </p>
 
-<h2>Contact</h2>
+  <div class="grid-2">
+    <div class="card">
+      <div class="icon">🤱</div>
+      <h3>AI Maternal Companion</h3>
+      <p>
+        An emotionally intelligent AI assistant designed to support mothers through pregnancy and early motherhood with guidance, reassurance, and health awareness.
+      </p>
+    </div>
 
-<div class="card">
-Email: <a href="mailto:franciscaomeagu@gmail.com">franciscaomeagu@gmail.com</a>
-</div>
+    <div class="card">
+      <div class="icon">🚨</div>
+      <h3>Early Risk Detection</h3>
+      <p>
+        Tools designed to help mothers recognize symptoms early and understand when medical attention may be needed.
+      </p>
+    </div>
 
-</div>
+    <div class="card">
+      <div class="icon">🏥</div>
+      <h3>Healthcare Connectivity</h3>
+      <p>
+        The platform aims to strengthen communication between mothers and healthcare providers for faster and more informed care decisions.
+      </p>
+    </div>
 
-<footer>
-NekahLumina Ventures ©️ 2026
+    <div class="card">
+      <div class="icon">🌸</div>
+      <h3>Maternal Wellbeing</h3>
+      <p>
+        NEKAH focuses on emotional support, postpartum wellbeing, and guidance for mothers navigating early parenthood.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="impact">
+  <h2>Impact for Mothers and Children</h2>
+  <div class="card highlight">
+    <p>
+      NEKAH is designed to help mothers recognize health risks earlier, access reliable guidance during pregnancy, and feel supported throughout early motherhood. By combining intelligent technology with maternal health awareness, the platform aims to reduce preventable complications during pregnancy and postpartum care.
+    </p>
+  </div>
+
+  <div class="impact-list">
+    <div class="impact-pill">
+      <strong>Earlier action</strong>
+      Supports mothers in recognizing when care may be needed sooner.
+    </div>
+    <div class="impact-pill">
+      <strong>Better maternal wellbeing</strong>
+      Encourages guidance, reassurance, and emotional support.
+    </div>
+    <div class="impact-pill">
+      <strong>Healthier newborn outcomes</strong>
+      Seeks to improve continuity of care for mothers and babies.
+    </div>
+  </div>
+</section>
+
+<section class="section" id="founder">
+  <h2>Founder</h2>
+  <div class="card founder">
+    <div class="avatar">F</div>
+    <div>
+      <h3>Francisca-Gina Anurika Umoh</h3>
+      <p>
+        Francisca-Gina Anurika Umoh, founder of NEKAH and NekahLumina Ventures, created NEKAH after identifying critical gaps in maternal healthcare support, particularly around early symptom detection, emergency response, and emotional support for mothers.
+      </p>
+      <p style="margin-top:12px;">
+        She won <strong>First Place in the 2025 HelpMum CareCode Hackathon</strong>, where NEKAH received recognition as an innovative maternal health solution and a ₦2,000,000 grant with mentorship support.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2>Contact</h2>
+  <div class="card">
+    <p><strong>Email:</strong> <a href="mailto:franciscaomeagu@gmail.com">franciscaomeagu@gmail.com</a></p>
+    <p><strong>GitHub Project:</strong> <a href="https://github.com/nekah-lumina/nekah">NEKAH Repository</a></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div><strong>NekahLumina Ventures</strong></div>
+    <small>©️ 2026 NEKAH. Built to support mothers and improve outcomes for babies.</small>
+  </div>
 </footer>
 
 </body>

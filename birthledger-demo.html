@@ -285,16 +285,26 @@
         </div>
 
         <div id="recordOutput" style="display:none;" class="result">
-          <div class="result-title">BirthLedger Record Output</div>
-          <div class="small">Canonical record payload</div>
-          <pre id="payloadBox" class="mono"></pre>
+  <div class="result-title">BirthLedger Record Output</div>
 
-          <div class="small" style="margin-top:10px;">Cryptographic record hash</div>
-          <div id="hashBox" class="mono"></div>
+  <div class="small">Canonical record payload</div>
+  <pre id="payloadBox" class="mono"></pre>
 
-          <div class="small" style="margin-top:10px;">Anchoring status</div>
-          <div id="anchorStatus" class="status ok">Anchored to blockchain verification layer ✔</div>
-        </div>
+  <div class="small" style="margin-top:10px;">Cryptographic record hash</div>
+  <div id="hashBox" class="mono"></div>
+
+  <div class="small" style="margin-top:10px;">Anchoring status</div>
+  <div id="anchorStatus" class="status ok">Anchored to blockchain verification layer ✔</div>
+
+  <div class="small" style="margin-top:12px;">Simulated blockchain transaction ID</div>
+  <div id="txBox" class="mono"></div>
+
+  <div class="small" style="margin-top:10px;">Network</div>
+  <div id="networkBox" class="mono">Polygon Test Environment</div>
+
+  <div class="small" style="margin-top:10px;">Anchored at</div>
+  <div id="timeBox" class="mono"></div>
+</div>
       </section>
 
       <section class="card">
@@ -402,12 +412,14 @@
       const hash = await sha256(payload);
       anchoredRecordHash = hash;
 
-      document.getElementById("payloadBox").textContent = payload;
-      document.getElementById("hashBox").textContent = hash;
-      document.getElementById("recordOutput").style.display = "block";
+     document.getElementById("payloadBox").textContent = payload;
+document.getElementById("hashBox").textContent = hash;
+document.getElementById("txBox").textContent = "0x" + hash.slice(0, 48);
+document.getElementById("timeBox").textContent = new Date().toISOString();
+document.getElementById("recordOutput").style.display = "block";
 
-      document.getElementById("verifyPayload").value = payload;
-      document.getElementById("verifyHash").value = hash;
+document.getElementById("verifyPayload").value = payload;
+document.getElementById("verifyHash").value = hash;
     });
 
     document.getElementById("verifyBtn").addEventListener("click", async () => {
